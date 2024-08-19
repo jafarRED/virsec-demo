@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-consumer-deploy
+  labels:
+    app: kafka-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-consumer
+  template:
+    metadata:
+      labels:
+        app: kafka-consumer
+    spec:
+      serviceAccountName: my-service-account
+      containers:
+      - name: kafka-consumer
+        #serviceAccountName: my-service-account
+        image: 571530462115.dkr.ecr.ap-south-1.amazonaws.com/virsec-demo:conumer-app  #571530462115.dkr.ecr.ap-south-1.amazonaws.com/virsec-demo:kafka-client
+        ports:
+        - containerPort: 8080
+        command: ["python", "/app/consumer-app.py"]
+        imagePullPolicy: Always
+        env:
+        - name: BOOTSTRAP_SERVERS
+          value: "b-2.virsecdemocluster.b2luv7.c3.kafka.ap-south-1.amazonaws.com:9098,b-1.virsecdemocluster.b2luv7.c3.kafka.ap-south-1.amazonaws.com:9098"
+        - name: GROUP_ID
+          value: "consumer-group"
+            #command: ["python"]
+            # args: ["/app/consumer.py"]
