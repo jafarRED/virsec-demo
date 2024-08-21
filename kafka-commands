@@ -1,0 +1,8 @@
+ ./kafka-topics.sh --create --bootstrap-server b-2.virsecdemo.29fsc5.c3.kafka.ap-south-1.amazonaws.com:9098,b-1.virsecdemo.29fsc5.c3.kafka.ap-south-1.amazonaws.com:9098 --command-config client.properties --replication-factor 2 --partitions 1 --topic topic-1
+
+
+ ./kafka-console-consumer.sh     --bootstrap-server b-2.virsecdemo.29fsc5.c3.kafka.ap-south-1.amazonaws.com:9098,b-1.virsecdemo.29fsc5.c3.kafka.ap-south-1.amazonaws.com:9098     --topic msk-test-topic     --from-beginning     --consumer.config client.properties
+
+
+
+./kafka-console-producer.sh     --broker-list b-2.virsecdemo.29fsc5.c3.kafka.ap-south-1.amazonaws.com:9098,b-1.virsecdemo.29fsc5.c3.kafka.ap-south-1.amazonaws.com:9098     --topic topic-1     --producer.config client.properties
